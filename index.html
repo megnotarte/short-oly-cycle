@@ -24,7 +24,7 @@
     background: var(--bg) !important;
     color: var(--text);
     font-family: 'DM Mono', monospace;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.6;
     min-height: 100vh;
   }
@@ -88,7 +88,7 @@
   }
 
   .note-tag {
-    font-size: 12px;
+    font-size: 14px;
     color: var(--text-dim);
     display: flex;
     gap: 8px;
@@ -250,11 +250,11 @@
 
   .lift-row:last-child { border-bottom: none; }
 
-  .lift-name { font-size: 16px; color: var(--text); font-weight: 500; }
+  .lift-name { font-size: 18px; color: var(--text); font-weight: 500; }
 
   .lift-cue {
     display: block;
-    font-size: 13px;
+    font-size: 14px;
     color: var(--text-muted);
     font-weight: 400;
     font-style: italic;
@@ -263,7 +263,7 @@
 
   .lift-scheme {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
+    font-size: 24px;
     letter-spacing: 0.05em;
     color: var(--gold);
     text-align: right;
@@ -273,9 +273,18 @@
   .lift-pct {
     display: block;
     font-family: 'DM Mono', monospace;
-    font-size: 12px;
+    font-size: 13px;
     color: var(--text-muted);
     text-align: right;
+  }
+
+  .lift-weight {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--teal);
+    text-align: right;
+    margin-top: 2px;
   }
 
   .wod-box {
@@ -307,7 +316,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 15px;
+    font-size: 17px;
     color: var(--text-dim);
     padding: 4px 0;
     border-bottom: 1px dotted var(--border);
@@ -318,7 +327,7 @@
 
   .wod-reps {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
+    font-size: 22px;
     color: var(--gold);
     letter-spacing: 0.04em;
     white-space: nowrap;
@@ -400,7 +409,7 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    font-size: 14px;
+    font-size: 17px;
     color: var(--text-dim);
     padding: 3px 0;
     border-bottom: 1px dotted var(--surface2);
@@ -408,7 +417,7 @@
   }
 
   .wu-item:last-child { border-bottom: none; }
-  .wu-detail { font-size: 13px; color: var(--text-muted); white-space: nowrap; }
+  .wu-detail { font-size: 15px; color: var(--text-muted); white-space: nowrap; }
 
   .wu-note {
     margin-top: 10px;
@@ -603,6 +612,20 @@ const warmups = {
   }
 };
 
+const maxes = { snatch: 90, clean: 125 };
+
+function calcWeight(pct, rm) {
+  if (!rm || !maxes[rm]) return null;
+  const match = pct.match(/(\d+)(?:-(\d+))?%/);
+  if (!match) return null;
+  const lo = parseInt(match[1]);
+  const hi = match[2] ? parseInt(match[2]) : lo;
+  const base = maxes[rm];
+  const loW = Math.round(base * lo / 500) * 5;
+  const hiW = Math.round(base * hi / 500) * 5;
+  return loW === hiW ? `~${loW} lbs` : `~${loW}–${hiW} lbs`;
+}
+
 const program = {
   1: {
     title: "WEEK 1",
@@ -612,10 +635,10 @@ const program = {
       {
         num: "DAY 01", focus: "Snatch Focus",
         lifts: [
-          { name: "Snatch Pull", cue: "3-sec pause below knee", scheme: "5x3", pct: "95-100% of snatch" },
-          { name: "Power Snatch + OHS", cue: "Touch-and-go complex", scheme: "5x(2+2)", pct: "65-72%" },
-          { name: "Snatch", cue: "Full lift, position focus", scheme: "6x2", pct: "72-78%" },
-          { name: "Overhead Squat", cue: "Pause at bottom", scheme: "4x4", pct: "70-75%" },
+          { name: "Snatch Pull", cue: "3-sec pause below knee", scheme: "5x3", pct: "95-100%", rm: "snatch" },
+          { name: "Power Snatch + OHS", cue: "Touch-and-go complex", scheme: "5x(2+2)", pct: "65-72%", rm: "snatch" },
+          { name: "Snatch", cue: "Full lift, position focus", scheme: "6x2", pct: "72-78%", rm: "snatch" },
+          { name: "Overhead Squat", cue: "Pause at bottom", scheme: "4x4", pct: "70-75%", rm: "snatch" },
         ],
         wod: { title: "FOR TIME", format: "3 rounds", moves: [
           ["KB Swings (53/35)", "15"],
@@ -627,10 +650,10 @@ const program = {
       {
         num: "DAY 02", focus: "Clean and Jerk Focus",
         lifts: [
-          { name: "Clean Pull", cue: "Controlled tempo, full extension", scheme: "5x3", pct: "100-105% of clean" },
-          { name: "Power Clean + Front Squat", cue: "1 PC + 2 FS complex", scheme: "5x(1+2)", pct: "68-75%" },
-          { name: "Clean and Jerk", cue: "Full lift, split jerk", scheme: "6x2", pct: "72-78%" },
-          { name: "Push Press", cue: "Jerk footwork on catch", scheme: "4x4", pct: "72-78%" },
+          { name: "Clean Pull", cue: "Controlled tempo, full extension", scheme: "5x3", pct: "100-105%", rm: "clean" },
+          { name: "Power Clean + Front Squat", cue: "1 PC + 2 FS complex", scheme: "5x(1+2)", pct: "68-75%", rm: "clean" },
+          { name: "Clean and Jerk", cue: "Full lift, split jerk", scheme: "6x2", pct: "72-78%", rm: "clean" },
+          { name: "Push Press", cue: "Jerk footwork on catch", scheme: "4x4", pct: "72-78%", rm: "clean" },
         ],
         wod: { title: "AMRAP 8", format: "As many rounds as possible", moves: [
           ["DB Push Press (35/25)", "10"],
@@ -642,10 +665,10 @@ const program = {
       {
         num: "DAY 03", focus: "Full Technique + Posterior",
         lifts: [
-          { name: "Hang Snatch (above knee)", cue: "Tall position emphasis", scheme: "5x3", pct: "68-75%" },
-          { name: "Hang Clean (below knee)", cue: "Transition drill", scheme: "5x3", pct: "68-75%" },
-          { name: "Romanian Deadlift", cue: "3-sec slow eccentric", scheme: "4x5", pct: "60-65% of clean" },
-          { name: "Good Morning", cue: "KB or barbell, control", scheme: "3x10", pct: "Light" },
+          { name: "Hang Snatch (above knee)", cue: "Tall position emphasis", scheme: "5x3", pct: "68-75%", rm: "snatch" },
+          { name: "Hang Clean (below knee)", cue: "Transition drill", scheme: "5x3", pct: "68-75%", rm: "clean" },
+          { name: "Romanian Deadlift", cue: "3-sec slow eccentric", scheme: "4x5", pct: "60-65%", rm: "clean" },
+          { name: "Good Morning", cue: "KB or barbell, control", scheme: "3x10", pct: "Light", rm: null },
         ],
         wod: { title: "CHIPPER", format: "1 round for time", moves: [
           ["KB Turkish Get-Up ea. side", "5"],
@@ -665,10 +688,10 @@ const program = {
       {
         num: "DAY 01", focus: "Snatch Focus",
         lifts: [
-          { name: "Snatch Pull", cue: "Speed off floor", scheme: "4x3", pct: "100-105%" },
-          { name: "Snatch", cue: "Full lift, work to daily max", scheme: "6x1", pct: "78-85%" },
-          { name: "Snatch Balance", cue: "Punch into the bottom", scheme: "4x3", pct: "75-80%" },
-          { name: "Overhead Squat", cue: "Heavier than week 1", scheme: "4x3", pct: "78-82%" },
+          { name: "Snatch Pull", cue: "Speed off floor", scheme: "4x3", pct: "100-105%", rm: "snatch" },
+          { name: "Snatch", cue: "Full lift, work to daily max", scheme: "6x1", pct: "78-85%", rm: "snatch" },
+          { name: "Snatch Balance", cue: "Punch into the bottom", scheme: "4x3", pct: "75-80%", rm: "snatch" },
+          { name: "Overhead Squat", cue: "Heavier than week 1", scheme: "4x3", pct: "78-82%", rm: "snatch" },
         ],
         wod: { title: "EMOM 10", format: "Every minute on the minute", moves: [
           ["Even: KB Swings (heavy)", "12"],
@@ -678,10 +701,10 @@ const program = {
       {
         num: "DAY 02", focus: "Clean and Jerk Focus",
         lifts: [
-          { name: "Clean Pull", cue: "Violent extension", scheme: "4x3", pct: "103-108%" },
-          { name: "Clean and Jerk", cue: "Work to a heavy single", scheme: "6x1", pct: "78-85%" },
-          { name: "Front Squat", cue: "Heavier than week 1", scheme: "4x3", pct: "80-85%" },
-          { name: "Jerk from Rack", cue: "Split jerk footwork drill", scheme: "4x3", pct: "75-80%" },
+          { name: "Clean Pull", cue: "Violent extension", scheme: "4x3", pct: "103-108%", rm: "clean" },
+          { name: "Clean and Jerk", cue: "Work to a heavy single", scheme: "6x1", pct: "78-85%", rm: "clean" },
+          { name: "Front Squat", cue: "Heavier than week 1", scheme: "4x3", pct: "80-85%", rm: "clean" },
+          { name: "Jerk from Rack", cue: "Split jerk footwork drill", scheme: "4x3", pct: "75-80%", rm: "clean" },
         ],
         wod: { title: "FOR TIME", format: "3 rounds", moves: [
           ["DB Thrusters (35/25)", "10"],
@@ -692,10 +715,10 @@ const program = {
       {
         num: "DAY 03", focus: "Full Technique + Posterior",
         lifts: [
-          { name: "Power Snatch", cue: "Speed, no cheat reps", scheme: "5x2", pct: "75-80%" },
-          { name: "Power Clean + Jerk", cue: "Full complex", scheme: "5x(1+1)", pct: "75-80%" },
-          { name: "Pause Front Squat", cue: "3-sec hold at bottom", scheme: "4x3", pct: "72-78%" },
-          { name: "Hip Extension or Bent-over Row", cue: "Posterior chain finisher", scheme: "3x10", pct: "Moderate" },
+          { name: "Power Snatch", cue: "Speed, no cheat reps", scheme: "5x2", pct: "75-80%", rm: "snatch" },
+          { name: "Power Clean + Jerk", cue: "Full complex", scheme: "5x(1+1)", pct: "75-80%", rm: "clean" },
+          { name: "Pause Front Squat", cue: "3-sec hold at bottom", scheme: "4x3", pct: "72-78%", rm: "clean" },
+          { name: "Hip Extension or Bent-over Row", cue: "Posterior chain finisher", scheme: "3x10", pct: "Moderate", rm: null },
         ],
         wod: { title: "AMRAP 10", format: "As many rounds as possible", moves: [
           ["DB Single-leg RDL ea. side", "8"],
@@ -714,10 +737,10 @@ const program = {
       {
         num: "DAY 01", focus: "Snatch Focus",
         lifts: [
-          { name: "Snatch Pull", cue: "Speed + max extension", scheme: "3x3", pct: "105-110%" },
-          { name: "Snatch", cue: "Work to a true max single", scheme: "Up to 1RM", pct: "85-95%+" },
-          { name: "Snatch Balance", cue: "Max for the day", scheme: "3x1", pct: "85-88%" },
-          { name: "Overhead Squat", cue: "Heavy triple", scheme: "3x3", pct: "83-88%" },
+          { name: "Snatch Pull", cue: "Speed + max extension", scheme: "3x3", pct: "105-110%", rm: "snatch" },
+          { name: "Snatch", cue: "Work to a true max single", scheme: "Up to 1RM", pct: "85-95%+", rm: "snatch" },
+          { name: "Snatch Balance", cue: "Max for the day", scheme: "3x1", pct: "85-88%", rm: "snatch" },
+          { name: "Overhead Squat", cue: "Heavy triple", scheme: "3x3", pct: "83-88%", rm: "snatch" },
         ],
         wod: { title: "SHORT + SHARP", format: "2 rounds, rest 2 min between", moves: [
           ["KB Swings (heavy)", "15"],
@@ -728,10 +751,10 @@ const program = {
       {
         num: "DAY 02", focus: "Clean and Jerk Focus",
         lifts: [
-          { name: "Clean Pull", cue: "Explosive, your power day", scheme: "3x3", pct: "108-112%" },
-          { name: "Clean and Jerk", cue: "Work to a true max single", scheme: "Up to 1RM", pct: "85-95%+" },
-          { name: "Front Squat", cue: "Heavy single or triple", scheme: "3x1", pct: "88-93%" },
-          { name: "Jerk from Rack", cue: "Heavy triple", scheme: "3x3", pct: "82-87%" },
+          { name: "Clean Pull", cue: "Explosive, your power day", scheme: "3x3", pct: "108-112%", rm: "clean" },
+          { name: "Clean and Jerk", cue: "Work to a true max single", scheme: "Up to 1RM", pct: "85-95%+", rm: "clean" },
+          { name: "Front Squat", cue: "Heavy single or triple", scheme: "3x1", pct: "88-93%", rm: "clean" },
+          { name: "Jerk from Rack", cue: "Heavy triple", scheme: "3x3", pct: "82-87%", rm: "clean" },
         ],
         wod: { title: "SHORT + SHARP", format: "2 rounds, rest 2 min between", moves: [
           ["DB Push Press (heavy)", "10"],
@@ -742,10 +765,10 @@ const program = {
       {
         num: "DAY 03", focus: "Full Technique + Posterior",
         lifts: [
-          { name: "Hang Snatch + Full Snatch", cue: "Complex, feel the transition", scheme: "4x(1+1)", pct: "78-82%" },
-          { name: "Hang Clean + Full C+J", cue: "Complex", scheme: "4x(1+1)", pct: "78-82%" },
-          { name: "Pause Back Squat", cue: "3-sec pause then drive", scheme: "4x3", pct: "78-83%" },
-          { name: "Glute Bridge or Hip Thrust", cue: "DB or KB loaded", scheme: "3x12", pct: "Heavy" },
+          { name: "Hang Snatch + Full Snatch", cue: "Complex, feel the transition", scheme: "4x(1+1)", pct: "78-82%", rm: "snatch" },
+          { name: "Hang Clean + Full C+J", cue: "Complex", scheme: "4x(1+1)", pct: "78-82%", rm: "clean" },
+          { name: "Pause Back Squat", cue: "3-sec pause then drive", scheme: "4x3", pct: "78-83%", rm: "clean" },
+          { name: "Glute Bridge or Hip Thrust", cue: "DB or KB loaded", scheme: "3x12", pct: "Heavy", rm: null },
         ],
         wod: { title: "FOR TIME", format: "1 round, go hard", moves: [
           ["Pull-ups", "21"],
@@ -766,10 +789,10 @@ const program = {
       {
         num: "DAY 01", focus: "Snatch Technique",
         lifts: [
-          { name: "Snatch Pull", cue: "Slow, deliberate positions", scheme: "3x3", pct: "80-85%" },
-          { name: "Snatch", cue: "Crisp reps, no max attempts", scheme: "4x2", pct: "68-72%" },
-          { name: "Overhead Squat", cue: "Light and controlled", scheme: "3x4", pct: "65-70%" },
-          { name: "Snatch Balance", cue: "Positional drill", scheme: "3x3", pct: "65-70%" },
+          { name: "Snatch Pull", cue: "Slow, deliberate positions", scheme: "3x3", pct: "80-85%", rm: "snatch" },
+          { name: "Snatch", cue: "Crisp reps, no max attempts", scheme: "4x2", pct: "68-72%", rm: "snatch" },
+          { name: "Overhead Squat", cue: "Light and controlled", scheme: "3x4", pct: "65-70%", rm: "snatch" },
+          { name: "Snatch Balance", cue: "Positional drill", scheme: "3x3", pct: "65-70%", rm: "snatch" },
         ],
         wod: { title: "EASY FLOW", format: "3 rounds, relaxed pace", moves: [
           ["KB Swings (light)", "12"],
@@ -781,10 +804,10 @@ const program = {
       {
         num: "DAY 02", focus: "Clean and Jerk Technique",
         lifts: [
-          { name: "Clean Pull", cue: "Position drill, not power", scheme: "3x3", pct: "88-92%" },
-          { name: "Clean and Jerk", cue: "Smooth reps, no max attempts", scheme: "4x2", pct: "68-72%" },
-          { name: "Front Squat", cue: "Light, stay upright", scheme: "3x4", pct: "65-72%" },
-          { name: "Push Press", cue: "Jerk timing drill", scheme: "3x4", pct: "65%" },
+          { name: "Clean Pull", cue: "Position drill, not power", scheme: "3x3", pct: "88-92%", rm: "clean" },
+          { name: "Clean and Jerk", cue: "Smooth reps, no max attempts", scheme: "4x2", pct: "68-72%", rm: "clean" },
+          { name: "Front Squat", cue: "Light, stay upright", scheme: "3x4", pct: "65-72%", rm: "clean" },
+          { name: "Push Press", cue: "Jerk timing drill", scheme: "3x4", pct: "65%", rm: "clean" },
         ],
         wod: { title: "EASY FLOW", format: "3 rounds, relaxed pace", moves: [
           ["DB Bent-over Row", "10"],
@@ -796,10 +819,10 @@ const program = {
       {
         num: "DAY 03", focus: "Movement Quality",
         lifts: [
-          { name: "Power Snatch", cue: "Focus on catch position", scheme: "4x2", pct: "65-70%" },
-          { name: "Power Clean + Push Jerk", cue: "Footwork and timing", scheme: "4x(1+2)", pct: "65-70%" },
-          { name: "Good Morning", cue: "Bodyweight or very light", scheme: "3x10", pct: "Light" },
-          { name: "Single-leg RDL", cue: "Balance and hip hinge", scheme: "3x8 ea.", pct: "Light DB/KB" },
+          { name: "Power Snatch", cue: "Focus on catch position", scheme: "4x2", pct: "65-70%", rm: "snatch" },
+          { name: "Power Clean + Push Jerk", cue: "Footwork and timing", scheme: "4x(1+2)", pct: "65-70%", rm: "clean" },
+          { name: "Good Morning", cue: "Bodyweight or very light", scheme: "3x10", pct: "Light", rm: null },
+          { name: "Single-leg RDL", cue: "Balance and hip hinge", scheme: "3x8 ea.", pct: "Light DB/KB", rm: null },
         ],
         wod: { title: "OPTIONAL FINISHER", format: "10 min easy movement", moves: [
           ["KB Farmer Carry", "4x40m"],
@@ -867,11 +890,14 @@ function renderWeek(n) {
       </div>
       <div class="section">
         <div class="sec-label">Olympic Lifts</div>
-        ${day.lifts.map(l => `
+        ${day.lifts.map(l => {
+          const w = calcWeight(l.pct, l.rm);
+          return `
           <div class="lift-row">
             <div class="lift-name">${l.name}<span class="lift-cue">${l.cue}</span></div>
-            <div class="lift-scheme">${l.scheme}<span class="lift-pct">${l.pct}</span></div>
-          </div>`).join('')}
+            <div class="lift-scheme">${l.scheme}<span class="lift-pct">${l.pct}</span>${w ? `<span class="lift-weight">${w}</span>` : ''}</div>
+          </div>`;
+        }).join('')}
       </div>
       <div class="section">
         <div class="sec-label">Conditioning</div>
