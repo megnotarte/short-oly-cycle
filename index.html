@@ -3,60 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>4-Week Olympic Lifting Program</title>
+<title>Short Oly Cycle</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0e0e0e;
     --surface: #151515;
-    --surface2: #1a1a1a;
+    --surface2: #1c1c1c;
     --border: #2a2a2a;
     --text: #f0ede6;
     --text-dim: #c8c0b4;
-    --text-muted: #9a9080;
+    --text-muted: #7a7068;
     --rust: #d4522f;
     --gold: #d4a030;
     --teal: #4a9e9e;
+    --done-bg: #0d1f1f;
   }
 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   html, body {
-    margin: 0; padding: 0;
-    background: var(--bg) !important;
+    background: var(--bg);
     color: var(--text);
     font-family: 'DM Mono', monospace;
-    font-size: 18px;
-    line-height: 1.6;
+    font-size: 17px;
+    line-height: 1.55;
     min-height: 100vh;
   }
 
   .page-wrap {
-    max-width: 700px;
+    max-width: 680px;
     margin: 0 auto;
   }
 
-  * { box-sizing: border-box; }
-
+  /* ── HEADER ── */
   .header {
-    background: var(--bg);
-    padding: 32px 20px 24px;
+    padding: 28px 20px 20px;
     border-bottom: 1px solid var(--border);
   }
 
   .program-label {
     font-size: 11px;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.2em;
     color: var(--rust);
     text-transform: uppercase;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
 
   h1 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(52px, 14vw, 100px);
+    font-size: clamp(48px, 13vw, 90px);
     line-height: 0.88;
     letter-spacing: 0.02em;
     color: var(--text);
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
 
   h1 em { color: var(--rust); font-style: normal; }
@@ -64,56 +64,45 @@
   .header-meta {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px 24px;
+    gap: 10px 20px;
   }
-
-  .meta-item { display: flex; flex-direction: column; gap: 2px; }
 
   .meta-label {
     font-size: 10px;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.16em;
     color: var(--text-muted);
     text-transform: uppercase;
+    display: block;
+    margin-bottom: 1px;
   }
 
-  .meta-value { font-size: 14px; color: var(--text-dim); }
-
-  .notes-bar {
-    background: #111;
-    border-bottom: 1px solid var(--border);
-    padding: 12px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .note-tag {
+  .meta-value {
     font-size: 14px;
     color: var(--text-dim);
-    display: flex;
-    gap: 8px;
   }
 
-  .note-tag::before { content: '//'; color: var(--rust); flex-shrink: 0; }
-
+  /* ── WEEK NAV ── */
   .week-nav {
-    background: var(--bg);
     display: flex;
     border-bottom: 1px solid var(--border);
     overflow-x: auto;
+    scrollbar-width: none;
   }
+
+  .week-nav::-webkit-scrollbar { display: none; }
 
   .week-btn {
     flex: 1;
-    min-width: 72px;
+    min-width: 70px;
     background: none;
     border: none;
     border-bottom: 3px solid transparent;
-    padding: 12px 8px 10px;
+    padding: 12px 6px 10px;
     cursor: pointer;
     color: var(--text-muted);
     transition: color 0.15s, border-color 0.15s;
     text-align: center;
+    position: relative;
   }
 
   .week-btn:hover { color: var(--text-dim); }
@@ -121,15 +110,14 @@
 
   .wn-num {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    letter-spacing: 0.05em;
+    font-size: 22px;
+    letter-spacing: 0.04em;
     display: block;
     line-height: 1;
   }
 
   .wn-sub {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     display: block;
@@ -138,27 +126,40 @@
 
   .week-btn.active .wn-sub { color: var(--gold); }
 
-  .content { padding: 20px 20px; }
+  /* done dot on week tab */
+  .week-btn .done-dots {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    margin-top: 4px;
+  }
+  .week-btn .done-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .week-btn .done-dot.on { background: var(--teal); }
 
+  /* ── WEEK BANNER ── */
   .week-banner {
+    margin: 16px 20px 0;
     background: var(--surface);
     border: 1px solid var(--border);
     border-left: 3px solid var(--rust);
     padding: 14px 16px;
-    margin-bottom: 18px;
   }
 
   .wb-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 22px;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     color: var(--text);
   }
 
   .wb-desc {
     font-family: 'Crimson Pro', serif;
     font-style: italic;
-    font-size: 14px;
+    font-size: 16px;
     color: var(--text-dim);
     line-height: 1.5;
     margin-top: 2px;
@@ -167,9 +168,9 @@
   .intensity-row {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     margin-top: 8px;
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--text-muted);
@@ -178,56 +179,79 @@
   .pip { width: 10px; height: 10px; background: var(--border); display: inline-block; }
   .pip.on { background: var(--rust); }
 
-  .days-grid { display: flex; flex-direction: column; gap: 14px; }
-
-  .day-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    animation: fadeUp 0.25s ease both;
-  }
-
-  .day-card:nth-child(1) { animation-delay: 0.04s; border-top: 3px solid var(--rust); }
-  .day-card:nth-child(2) { animation-delay: 0.08s; border-top: 3px solid var(--gold); }
-  .day-card:nth-child(3) { animation-delay: 0.12s; border-top: 3px solid var(--teal); }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .day-header {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
+  /* ── DAY NAV TABS ── */
+  .day-nav {
     display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 10px;
+    margin: 16px 20px 0;
+    border: 1px solid var(--border);
+    overflow: hidden;
   }
 
-  .day-num {
+  .day-tab {
+    flex: 1;
+    background: none;
+    border: none;
+    border-right: 1px solid var(--border);
+    padding: 12px 8px;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    text-align: center;
+    transition: background 0.15s, color 0.15s;
+    position: relative;
+  }
+
+  .day-tab:last-child { border-right: none; }
+  .day-tab:hover { background: var(--surface2); color: var(--text-dim); }
+  .day-tab.active { background: var(--surface); color: var(--text); }
+
+  .day-tab-num {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 30px;
-    letter-spacing: 0.03em;
+    font-size: 26px;
+    display: block;
     line-height: 1;
-    color: var(--text);
+    letter-spacing: 0.03em;
   }
 
-  .day-focus {
+  .day-tab-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: inherit;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .day-tab.active .day-tab-label { color: var(--gold); }
+
+  .day-tab.is-done .day-tab-num { color: var(--teal); }
+  .day-tab.is-done::after {
+    content: '✓';
+    position: absolute;
+    top: 6px; right: 8px;
+    font-size: 11px;
+    color: var(--teal);
+  }
+
+  /* ── DAY CONTENT ── */
+  .day-content { padding: 0 20px 40px; margin-top: 16px; }
+
+  .day-focus-line {
     font-family: 'Crimson Pro', serif;
     font-style: italic;
-    font-size: 14px;
+    font-size: 18px;
     color: var(--text-dim);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
   }
 
-  .section {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--surface2);
-  }
-
-  .section:last-child { border-bottom: none; }
+  /* ── SECTIONS ── */
+  .section { margin-bottom: 20px; }
 
   .sec-label {
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--rust);
@@ -239,35 +263,139 @@
 
   .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
+  /* ── WARM-UP PANELS ── */
+  .wu-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    margin-bottom: 6px;
+  }
+
+  .wu-panel:last-child { margin-bottom: 0; }
+
+  .wu-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 11px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .wu-toggle:hover { background: rgba(255,255,255,0.03); }
+
+  .wu-arrow {
+    color: var(--gold);
+    font-size: 10px;
+    transition: transform 0.18s;
+    flex-shrink: 0;
+  }
+
+  .wu-panel.open .wu-arrow { transform: rotate(90deg); }
+
+  .wu-name {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    display: block;
+  }
+
+  .wu-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    letter-spacing: 0;
+    text-transform: none;
+    display: block;
+    margin-top: 1px;
+  }
+
+  .wu-body {
+    display: none;
+    padding: 0 14px 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  .wu-panel.open .wu-body { display: block; }
+
+  .wu-block { margin-top: 12px; }
+
+  .wu-block-title {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .wu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 16px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px dotted var(--border);
+    gap: 8px;
+  }
+
+  .wu-item:last-child { border-bottom: none; }
+  .wu-detail { font-size: 14px; color: var(--text-muted); white-space: nowrap; }
+
+  .wu-note {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── LIFTS ── */
   .lift-row {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 8px;
     align-items: start;
-    padding: 6px 0;
+    padding: 10px 0;
     border-bottom: 1px solid var(--surface2);
   }
 
   .lift-row:last-child { border-bottom: none; }
 
-  .lift-name { font-size: 18px; color: var(--text); font-weight: 500; }
+  .lift-name {
+    font-size: 17px;
+    color: var(--text);
+    font-weight: 500;
+    line-height: 1.3;
+  }
 
   .lift-cue {
     display: block;
-    font-size: 14px;
+    font-size: 13px;
     color: var(--text-muted);
     font-weight: 400;
     font-style: italic;
-    margin-top: 1px;
+    margin-top: 2px;
   }
 
   .lift-scheme {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 24px;
-    letter-spacing: 0.05em;
+    font-size: 26px;
+    letter-spacing: 0.04em;
     color: var(--gold);
     text-align: right;
     white-space: nowrap;
+    line-height: 1;
   }
 
   .lift-pct {
@@ -276,39 +404,41 @@
     font-size: 13px;
     color: var(--text-muted);
     text-align: right;
+    margin-top: 2px;
   }
 
   .lift-weight {
     display: block;
     font-family: 'DM Mono', monospace;
-    font-size: 13px;
+    font-size: 14px;
     color: var(--teal);
     text-align: right;
-    margin-top: 2px;
+    margin-top: 1px;
   }
 
+  /* ── WOD ── */
   .wod-box {
-    background: #111;
+    background: var(--surface);
     border: 1px solid var(--border);
-    padding: 10px 12px;
+    padding: 14px;
   }
 
   .wod-head {
     display: flex;
     align-items: baseline;
-    gap: 8px;
-    margin-bottom: 8px;
+    gap: 10px;
+    margin-bottom: 10px;
     flex-wrap: wrap;
   }
 
   .wod-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 16px;
-    letter-spacing: 0.05em;
+    font-size: 22px;
+    letter-spacing: 0.04em;
     color: var(--rust);
   }
 
-  .wod-format { font-size: 11px; color: var(--text-muted); }
+  .wod-format { font-size: 13px; color: var(--text-muted); }
 
   .wod-movements { list-style: none; }
 
@@ -316,11 +446,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 17px;
+    font-size: 16px;
     color: var(--text-dim);
-    padding: 4px 0;
+    padding: 6px 0;
     border-bottom: 1px dotted var(--border);
-    gap: 8px;
+    gap: 10px;
   }
 
   .wod-movements li:last-child { border-bottom: none; }
@@ -334,104 +464,36 @@
     flex-shrink: 0;
   }
 
-  /* WARM-UP PANELS */
-  .wu-panel {
-    background: #111;
-    border: 1px solid var(--border);
-    margin-bottom: 6px;
-  }
-
-  .wu-panel:last-child { margin-bottom: 0; }
-
-  .wu-toggle {
+  /* ── MARK DONE ── */
+  .done-btn {
     width: 100%;
+    margin-top: 24px;
+    padding: 16px;
     background: none;
-    border: none;
-    padding: 9px 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    text-align: left;
-  }
-
-  .wu-toggle:hover { background: rgba(255,255,255,0.03); }
-
-  .wu-arrow {
-    color: var(--gold);
-    font-size: 9px;
-    transition: transform 0.18s;
-    flex-shrink: 0;
-  }
-
-  .wu-panel.open .wu-arrow { transform: rotate(90deg); }
-
-  .wu-toggle-text { display: flex; flex-direction: column; gap: 1px; flex: 1; }
-
-  .wu-name {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-dim);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
     font-family: 'DM Mono', monospace;
-  }
-
-  .wu-sub {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-family: 'Crimson Pro', serif;
-    font-style: italic;
-    letter-spacing: 0;
-    text-transform: none;
-  }
-
-  .wu-body {
-    display: none;
-    padding: 0 12px 12px;
-    border-top: 1px solid var(--border);
-  }
-
-  .wu-panel.open .wu-body { display: block; }
-
-  .wu-block { margin-top: 10px; }
-
-  .wu-block-title {
-    font-size: 10px;
-    letter-spacing: 0.18em;
+    font-size: 13px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 6px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
   }
 
-  .wu-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-size: 17px;
-    color: var(--text-dim);
-    padding: 3px 0;
-    border-bottom: 1px dotted var(--surface2);
-    gap: 8px;
+  .done-btn:hover {
+    border-color: var(--teal);
+    color: var(--teal);
   }
 
-  .wu-item:last-child { border-bottom: none; }
-  .wu-detail { font-size: 15px; color: var(--text-muted); white-space: nowrap; }
-
-  .wu-note {
-    margin-top: 10px;
-    padding-top: 8px;
-    border-top: 1px solid var(--border);
-    font-family: 'Crimson Pro', serif;
-    font-style: italic;
-    font-size: 15px;
-    color: var(--text-muted);
-    line-height: 1.6;
+  .done-btn.marked {
+    background: var(--done-bg);
+    border-color: var(--teal);
+    color: var(--teal);
   }
 
+  /* ── PROGRAM NOTES ── */
   .program-notes {
-    margin-top: 20px;
+    margin: 0 20px 32px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-left: 3px solid var(--teal);
@@ -440,8 +502,8 @@
 
   .pn-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    letter-spacing: 0.05em;
+    font-size: 20px;
+    letter-spacing: 0.04em;
     color: var(--text);
     margin-bottom: 12px;
   }
@@ -449,7 +511,7 @@
   .pn-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 14px;
   }
 
   .pn-block { font-size: 13px; color: var(--text-dim); line-height: 1.65; }
@@ -457,7 +519,7 @@
   .pn-block strong {
     display: block;
     font-size: 11px;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--gold);
     margin-bottom: 3px;
@@ -465,153 +527,52 @@
 
   @media (max-width: 480px) {
     .pn-grid { grid-template-columns: 1fr; }
-    .header { padding: 24px 16px 20px; }
-    .notes-bar { padding: 10px 16px; }
-    .content { padding: 16px; }
-    .day-header, .section { padding-left: 14px; padding-right: 14px; }
+    .header { padding: 20px 16px 16px; }
+    .week-banner, .day-nav { margin-left: 16px; margin-right: 16px; }
+    .day-content { padding-left: 16px; padding-right: 16px; }
+    .program-notes { margin-left: 16px; margin-right: 16px; }
   }
 </style>
 </head>
 <body>
 <div class="page-wrap">
 
-<div class="header">
-  <div class="program-label">Advanced · 3 Days/Week · 4-Week Cycle</div>
-  <h1>LIFT <em>HEAVY</em><br>MOVE FAST</h1>
-  <div class="header-meta">
-    <div class="meta-item">
-      <span class="meta-label">Structure</span>
-      <span class="meta-value">Day 1 / Day 2 / Day 3</span>
-    </div>
-    <div class="meta-item">
-      <span class="meta-label">Primary Lifts</span>
-      <span class="meta-value">Snatch · Clean &amp; Jerk</span>
-    </div>
-    <div class="meta-item">
-      <span class="meta-label">Accessories</span>
-      <span class="meta-value">CrossFit-Style WODs</span>
-    </div>
-    <div class="meta-item">
-      <span class="meta-label">Duration</span>
-      <span class="meta-value">~35–45 min/session</span>
+  <div class="header">
+    <div class="program-label">Advanced · 3 Days/Week · 4-Week Cycle</div>
+    <h1>LIFT <em>HEAVY</em><br>MOVE FAST</h1>
+    <div class="header-meta">
+      <div>
+        <span class="meta-label">Primary Lifts</span>
+        <span class="meta-value">Snatch · Clean &amp; Jerk</span>
+      </div>
+      <div>
+        <span class="meta-label">Duration</span>
+        <span class="meta-value">~35–45 min/session</span>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="notes-bar">
-  <div class="note-tag">% based on 1RM — adjust week to week by feel</div>
-  <div class="note-tag">All conditioning: DBs / KBs / pull-up bar only</div>
-  <div class="note-tag">Foot issues: no box jumps — sub step-ups or bike</div>
-  <div class="note-tag">Week 4 is a true deload — trust it</div>
-</div>
+  <nav class="week-nav" id="week-nav"></nav>
 
-<nav class="week-nav">
-  <button class="week-btn active" onclick="showWeek(1,this)">
-    <span class="wn-num">WK 1</span>
-    <span class="wn-sub">Accumulate</span>
-  </button>
-  <button class="week-btn" onclick="showWeek(2,this)">
-    <span class="wn-num">WK 2</span>
-    <span class="wn-sub">Intensify</span>
-  </button>
-  <button class="week-btn" onclick="showWeek(3,this)">
-    <span class="wn-num">WK 3</span>
-    <span class="wn-sub">Peak</span>
-  </button>
-  <button class="week-btn" onclick="showWeek(4,this)">
-    <span class="wn-num">WK 4</span>
-    <span class="wn-sub">Deload</span>
-  </button>
-</nav>
+  <div id="week-banner"></div>
 
-<div class="content">
-  <div id="week-content"></div>
-</div>
+  <div class="day-nav" id="day-nav"></div>
+
+  <div class="day-content" id="day-content"></div>
+
+  <div class="program-notes">
+    <div class="pn-title">Programming Notes</div>
+    <div class="pn-grid">
+      <div class="pn-block"><strong>Foot &amp; Ankle</strong>No box jumps — subbed for step-ups or bike. RDLs and good mornings keep posterior load without dorsiflexion stress.</div>
+      <div class="pn-block"><strong>When to Push</strong>If Weeks 2–3 feel exceptional, take one attempt above the range. Otherwise trust the number.</div>
+      <div class="pn-block"><strong>Conditioning</strong>Finishers, not main events. Under 15 min. Reduce load before breaking sets.</div>
+      <div class="pn-block"><strong>Week 4 Deload</strong>Not optional. Adaptation happens here. No sneaking in heavy singles.</div>
+    </div>
+  </div>
 
 </div><!-- /.page-wrap -->
 
 <script>
-const warmups = {
-  general: {
-    name: "General Warm-Up",
-    sub: "Every session — ~5 min",
-    blocks: [
-      { title: "Blood Flow", items: [
-        ["Row or bike easy", "3 min"],
-        ["Arm circles fwd + back", "10 ea."],
-        ["Hip circles", "10 ea. direction"],
-      ]},
-      { title: "Mobility (your existing routine)", items: [
-        ["Hip 90/90 stretch", "45 sec ea."],
-        ["Ankle circles + calf stretch", "30 sec ea."],
-        ["Banded hip flexor", "30 sec ea."],
-        ["Thoracic rotation", "8 ea. side"],
-      ]},
-      { title: "Activation", items: [
-        ["Scap pull-ups", "10 slow"],
-        ["Glute bridges", "15"],
-        ["Banded pull-aparts", "15"],
-      ]},
-    ],
-    note: "Covers your rehab and mobility needs. If time is tight, cut blood flow to 90 sec — never skip the ankle and hip work before loading."
-  },
-  day0: {
-    name: "Snatch-Specific Warm-Up",
-    sub: "Day 1 — ~6 min with empty bar",
-    blocks: [
-      { title: "Empty Bar Complex — 3 rounds", items: [
-        ["Snatch-grip RDL", "5 reps"],
-        ["Hang muscle snatch", "5 reps"],
-        ["Overhead squat", "5 reps"],
-        ["Snatch balance", "3 reps"],
-      ]},
-      { title: "Build-Up Sets", items: [
-        ["Power snatch", "3x3 @ 40-50%"],
-        ["Full snatch", "2x2 @ 55-62%"],
-        ["Into working sets", ""],
-      ]},
-    ],
-    note: "Do not skip the snatch balance — it primes your catch reflex before you load up. Even 3 light reps makes a real difference in the catch."
-  },
-  day1: {
-    name: "Clean and Jerk Warm-Up",
-    sub: "Day 2 — ~6 min with empty bar",
-    blocks: [
-      { title: "Empty Bar Complex — 3 rounds", items: [
-        ["Romanian deadlift", "5 reps"],
-        ["Hang muscle clean", "5 reps"],
-        ["Front squat", "5 reps"],
-        ["Push press", "5 reps"],
-        ["Split jerk footwork drill", "3 reps"],
-      ]},
-      { title: "Build-Up Sets", items: [
-        ["Power clean + front squat", "3x(2+2) @ 40-50%"],
-        ["Clean and jerk", "2x1 @ 55-62%"],
-        ["Into working sets", ""],
-      ]},
-    ],
-    note: "Run jerk footwork drills with zero load first — jump, land, check foot position, reset. Sloppy feet under fatigue start in warm-up."
-  },
-  day2: {
-    name: "Technique Day Warm-Up",
-    sub: "Day 3 — ~5 min, position emphasis",
-    blocks: [
-      { title: "Positional Drills — empty bar", items: [
-        ["Snatch-grip behind-neck press", "10 reps"],
-        ["Tall snatch (from hip)", "5 reps"],
-        ["Tall clean (from hip)", "5 reps"],
-        ["Push jerk + catch hold", "5 reps"],
-      ]},
-      { title: "Build-Up Sets", items: [
-        ["Hang snatch", "3x2 @ 50%"],
-        ["Hang clean", "3x2 @ 50%"],
-        ["Into working sets", ""],
-      ]},
-    ],
-    note: "Tall snatch and tall clean train your pull-under reflex without taxing your CNS. Day 3 should feel technical and deliberate, not grinding."
-  }
-};
-
 const maxes = { snatch: 90, clean: 125 };
 
 function calcWeight(pct, rm) {
@@ -626,19 +587,97 @@ function calcWeight(pct, rm) {
   return loW === hiW ? `~${loW} lbs` : `~${loW}–${hiW} lbs`;
 }
 
+const warmups = {
+  general: {
+    name: "General Warm-Up",
+    sub: "Every session — ~5 min",
+    blocks: [
+      { title: "Blood Flow", items: [
+        ["Row or bike easy", "3 min"],
+        ["Arm circles fwd + back", "10 ea."],
+        ["Hip circles", "10 ea. direction"],
+      ]},
+      { title: "Mobility", items: [
+        ["Hip 90/90 stretch", "45 sec ea."],
+        ["Ankle circles + calf stretch", "30 sec ea."],
+        ["Banded hip flexor", "30 sec ea."],
+        ["Thoracic rotation", "8 ea. side"],
+      ]},
+      { title: "Activation", items: [
+        ["Scap pull-ups", "10 slow"],
+        ["Glute bridges", "15"],
+        ["Banded pull-aparts", "15"],
+      ]},
+    ],
+    note: "If time is tight, cut blood flow to 90 sec — never skip the ankle and hip work before loading."
+  },
+  day0: {
+    name: "Snatch Warm-Up",
+    sub: "Day 1 — ~6 min, empty bar",
+    blocks: [
+      { title: "Empty Bar Complex — 3 rounds", items: [
+        ["Snatch-grip RDL", "5"],
+        ["Hang muscle snatch", "5"],
+        ["Overhead squat", "5"],
+        ["Snatch balance", "3"],
+      ]},
+      { title: "Build-Up Sets", items: [
+        ["Power snatch", "3×3 @ 40–50%"],
+        ["Full snatch", "2×2 @ 55–62%"],
+      ]},
+    ],
+    note: "Don't skip the snatch balance — it primes your catch reflex. Even 3 light reps makes a real difference."
+  },
+  day1: {
+    name: "Clean & Jerk Warm-Up",
+    sub: "Day 2 — ~6 min, empty bar",
+    blocks: [
+      { title: "Empty Bar Complex — 3 rounds", items: [
+        ["Romanian deadlift", "5"],
+        ["Hang muscle clean", "5"],
+        ["Front squat", "5"],
+        ["Push press", "5"],
+        ["Split jerk footwork drill", "3"],
+      ]},
+      { title: "Build-Up Sets", items: [
+        ["Power clean + front squat", "3×(2+2) @ 40–50%"],
+        ["Clean and jerk", "2×1 @ 55–62%"],
+      ]},
+    ],
+    note: "Run jerk footwork drills with zero load first — jump, land, check foot position, reset."
+  },
+  day2: {
+    name: "Technique Day Warm-Up",
+    sub: "Day 3 — ~5 min, position focus",
+    blocks: [
+      { title: "Positional Drills — empty bar", items: [
+        ["Snatch-grip behind-neck press", "10"],
+        ["Tall snatch (from hip)", "5"],
+        ["Tall clean (from hip)", "5"],
+        ["Push jerk + catch hold", "5"],
+      ]},
+      { title: "Build-Up Sets", items: [
+        ["Hang snatch", "3×2 @ 50%"],
+        ["Hang clean", "3×2 @ 50%"],
+      ]},
+    ],
+    note: "Day 3 should feel technical and deliberate, not grinding."
+  }
+};
+
 const program = {
   1: {
-    title: "WEEK 1",
+    title: "WEEK 1", sub: "Accumulate",
     desc: "Higher volume at moderate intensity. Build positional confidence and establish your movement pattern for the cycle.",
     intensity: 3,
     days: [
       {
         num: "DAY 01", focus: "Snatch Focus",
         lifts: [
-          { name: "Snatch Pull", cue: "3-sec pause below knee", scheme: "5x3", pct: "95-100%", rm: "snatch" },
-          { name: "Power Snatch + OHS", cue: "Touch-and-go complex", scheme: "5x(2+2)", pct: "65-72%", rm: "snatch" },
-          { name: "Snatch", cue: "Full lift, position focus", scheme: "6x2", pct: "72-78%", rm: "snatch" },
-          { name: "Overhead Squat", cue: "Pause at bottom", scheme: "4x4", pct: "70-75%", rm: "snatch" },
+          { name: "Snatch Pull", cue: "3-sec pause below knee", scheme: "5×3", pct: "95–100%", rm: "snatch" },
+          { name: "Power Snatch + OHS", cue: "Touch-and-go complex", scheme: "5×(2+2)", pct: "65–72%", rm: "snatch" },
+          { name: "Snatch", cue: "Full lift, position focus", scheme: "6×2", pct: "72–78%", rm: "snatch" },
+          { name: "Overhead Squat", cue: "Pause at bottom", scheme: "4×4", pct: "70–75%", rm: "snatch" },
         ],
         wod: { title: "FOR TIME", format: "3 rounds", moves: [
           ["KB Swings (53/35)", "15"],
@@ -648,12 +687,12 @@ const program = {
         ]}
       },
       {
-        num: "DAY 02", focus: "Clean and Jerk Focus",
+        num: "DAY 02", focus: "Clean &amp; Jerk Focus",
         lifts: [
-          { name: "Clean Pull", cue: "Controlled tempo, full extension", scheme: "5x3", pct: "100-105%", rm: "clean" },
-          { name: "Power Clean + Front Squat", cue: "1 PC + 2 FS complex", scheme: "5x(1+2)", pct: "68-75%", rm: "clean" },
-          { name: "Clean and Jerk", cue: "Full lift, split jerk", scheme: "6x2", pct: "72-78%", rm: "clean" },
-          { name: "Push Press", cue: "Jerk footwork on catch", scheme: "4x4", pct: "72-78%", rm: "clean" },
+          { name: "Clean Pull", cue: "Controlled tempo, full extension", scheme: "5×3", pct: "100–105%", rm: "clean" },
+          { name: "Power Clean + Front Squat", cue: "1 PC + 2 FS complex", scheme: "5×(1+2)", pct: "68–75%", rm: "clean" },
+          { name: "Clean and Jerk", cue: "Full lift, split jerk", scheme: "6×2", pct: "72–78%", rm: "clean" },
+          { name: "Push Press", cue: "Jerk footwork on catch", scheme: "4×4", pct: "72–78%", rm: "clean" },
         ],
         wod: { title: "AMRAP 8", format: "As many rounds as possible", moves: [
           ["DB Push Press (35/25)", "10"],
@@ -663,12 +702,12 @@ const program = {
         ]}
       },
       {
-        num: "DAY 03", focus: "Full Technique + Posterior",
+        num: "DAY 03", focus: "Technique + Posterior",
         lifts: [
-          { name: "Hang Snatch (above knee)", cue: "Tall position emphasis", scheme: "5x3", pct: "68-75%", rm: "snatch" },
-          { name: "Hang Clean (below knee)", cue: "Transition drill", scheme: "5x3", pct: "68-75%", rm: "clean" },
-          { name: "Romanian Deadlift", cue: "3-sec slow eccentric", scheme: "4x5", pct: "60-65%", rm: "clean" },
-          { name: "Good Morning", cue: "KB or barbell, control", scheme: "3x10", pct: "Light", rm: null },
+          { name: "Hang Snatch (above knee)", cue: "Tall position emphasis", scheme: "5×3", pct: "68–75%", rm: "snatch" },
+          { name: "Hang Clean (below knee)", cue: "Transition drill", scheme: "5×3", pct: "68–75%", rm: "clean" },
+          { name: "Romanian Deadlift", cue: "3-sec slow eccentric", scheme: "4×5", pct: "60–65%", rm: "clean" },
+          { name: "Good Morning", cue: "KB or barbell, control", scheme: "3×10", pct: "Light", rm: null },
         ],
         wod: { title: "CHIPPER", format: "1 round for time", moves: [
           ["KB Turkish Get-Up ea. side", "5"],
@@ -681,17 +720,17 @@ const program = {
     ]
   },
   2: {
-    title: "WEEK 2",
+    title: "WEEK 2", sub: "Intensify",
     desc: "Volume drops slightly, intensity climbs. Singles start appearing. Stay sharp and don't grind.",
     intensity: 4,
     days: [
       {
         num: "DAY 01", focus: "Snatch Focus",
         lifts: [
-          { name: "Snatch Pull", cue: "Speed off floor", scheme: "4x3", pct: "100-105%", rm: "snatch" },
-          { name: "Snatch", cue: "Full lift, work to daily max", scheme: "6x1", pct: "78-85%", rm: "snatch" },
-          { name: "Snatch Balance", cue: "Punch into the bottom", scheme: "4x3", pct: "75-80%", rm: "snatch" },
-          { name: "Overhead Squat", cue: "Heavier than week 1", scheme: "4x3", pct: "78-82%", rm: "snatch" },
+          { name: "Snatch Pull", cue: "Speed off floor", scheme: "4×3", pct: "100–105%", rm: "snatch" },
+          { name: "Snatch", cue: "Work to daily max", scheme: "6×1", pct: "78–85%", rm: "snatch" },
+          { name: "Snatch Balance", cue: "Punch into the bottom", scheme: "4×3", pct: "75–80%", rm: "snatch" },
+          { name: "Overhead Squat", cue: "Heavier than week 1", scheme: "4×3", pct: "78–82%", rm: "snatch" },
         ],
         wod: { title: "EMOM 10", format: "Every minute on the minute", moves: [
           ["Even: KB Swings (heavy)", "12"],
@@ -699,12 +738,12 @@ const program = {
         ]}
       },
       {
-        num: "DAY 02", focus: "Clean and Jerk Focus",
+        num: "DAY 02", focus: "Clean &amp; Jerk Focus",
         lifts: [
-          { name: "Clean Pull", cue: "Violent extension", scheme: "4x3", pct: "103-108%", rm: "clean" },
-          { name: "Clean and Jerk", cue: "Work to a heavy single", scheme: "6x1", pct: "78-85%", rm: "clean" },
-          { name: "Front Squat", cue: "Heavier than week 1", scheme: "4x3", pct: "80-85%", rm: "clean" },
-          { name: "Jerk from Rack", cue: "Split jerk footwork drill", scheme: "4x3", pct: "75-80%", rm: "clean" },
+          { name: "Clean Pull", cue: "Violent extension", scheme: "4×3", pct: "103–108%", rm: "clean" },
+          { name: "Clean and Jerk", cue: "Work to a heavy single", scheme: "6×1", pct: "78–85%", rm: "clean" },
+          { name: "Front Squat", cue: "Heavier than week 1", scheme: "4×3", pct: "80–85%", rm: "clean" },
+          { name: "Jerk from Rack", cue: "Split jerk footwork drill", scheme: "4×3", pct: "75–80%", rm: "clean" },
         ],
         wod: { title: "FOR TIME", format: "3 rounds", moves: [
           ["DB Thrusters (35/25)", "10"],
@@ -713,12 +752,12 @@ const program = {
         ]}
       },
       {
-        num: "DAY 03", focus: "Full Technique + Posterior",
+        num: "DAY 03", focus: "Technique + Posterior",
         lifts: [
-          { name: "Power Snatch", cue: "Speed, no cheat reps", scheme: "5x2", pct: "75-80%", rm: "snatch" },
-          { name: "Power Clean + Jerk", cue: "Full complex", scheme: "5x(1+1)", pct: "75-80%", rm: "clean" },
-          { name: "Pause Front Squat", cue: "3-sec hold at bottom", scheme: "4x3", pct: "72-78%", rm: "clean" },
-          { name: "Hip Extension or Bent-over Row", cue: "Posterior chain finisher", scheme: "3x10", pct: "Moderate", rm: null },
+          { name: "Power Snatch", cue: "Speed, no cheat reps", scheme: "5×2", pct: "75–80%", rm: "snatch" },
+          { name: "Power Clean + Jerk", cue: "Full complex", scheme: "5×(1+1)", pct: "75–80%", rm: "clean" },
+          { name: "Pause Front Squat", cue: "3-sec hold at bottom", scheme: "4×3", pct: "72–78%", rm: "clean" },
+          { name: "Hip Extension or Row", cue: "Posterior chain finisher", scheme: "3×10", pct: "Moderate", rm: null },
         ],
         wod: { title: "AMRAP 10", format: "As many rounds as possible", moves: [
           ["DB Single-leg RDL ea. side", "8"],
@@ -730,17 +769,17 @@ const program = {
     ]
   },
   3: {
-    title: "WEEK 3",
+    title: "WEEK 3", sub: "Peak",
     desc: "Your biggest week. Fewer reps, maximum intent. Every lift should feel like a competition attempt.",
     intensity: 5,
     days: [
       {
         num: "DAY 01", focus: "Snatch Focus",
         lifts: [
-          { name: "Snatch Pull", cue: "Speed + max extension", scheme: "3x3", pct: "105-110%", rm: "snatch" },
-          { name: "Snatch", cue: "Work to a true max single", scheme: "Up to 1RM", pct: "85-95%+", rm: "snatch" },
-          { name: "Snatch Balance", cue: "Max for the day", scheme: "3x1", pct: "85-88%", rm: "snatch" },
-          { name: "Overhead Squat", cue: "Heavy triple", scheme: "3x3", pct: "83-88%", rm: "snatch" },
+          { name: "Snatch Pull", cue: "Speed + max extension", scheme: "3×3", pct: "105–110%", rm: "snatch" },
+          { name: "Snatch", cue: "Work to a true max single", scheme: "Up to 1RM", pct: "85–95%+", rm: "snatch" },
+          { name: "Snatch Balance", cue: "Max for the day", scheme: "3×1", pct: "85–88%", rm: "snatch" },
+          { name: "Overhead Squat", cue: "Heavy triple", scheme: "3×3", pct: "83–88%", rm: "snatch" },
         ],
         wod: { title: "SHORT + SHARP", format: "2 rounds, rest 2 min between", moves: [
           ["KB Swings (heavy)", "15"],
@@ -749,12 +788,12 @@ const program = {
         ]}
       },
       {
-        num: "DAY 02", focus: "Clean and Jerk Focus",
+        num: "DAY 02", focus: "Clean &amp; Jerk Focus",
         lifts: [
-          { name: "Clean Pull", cue: "Explosive, your power day", scheme: "3x3", pct: "108-112%", rm: "clean" },
-          { name: "Clean and Jerk", cue: "Work to a true max single", scheme: "Up to 1RM", pct: "85-95%+", rm: "clean" },
-          { name: "Front Squat", cue: "Heavy single or triple", scheme: "3x1", pct: "88-93%", rm: "clean" },
-          { name: "Jerk from Rack", cue: "Heavy triple", scheme: "3x3", pct: "82-87%", rm: "clean" },
+          { name: "Clean Pull", cue: "Explosive, your power day", scheme: "3×3", pct: "108–112%", rm: "clean" },
+          { name: "Clean and Jerk", cue: "Work to a true max single", scheme: "Up to 1RM", pct: "85–95%+", rm: "clean" },
+          { name: "Front Squat", cue: "Heavy single or triple", scheme: "3×1", pct: "88–93%", rm: "clean" },
+          { name: "Jerk from Rack", cue: "Heavy triple", scheme: "3×3", pct: "82–87%", rm: "clean" },
         ],
         wod: { title: "SHORT + SHARP", format: "2 rounds, rest 2 min between", moves: [
           ["DB Push Press (heavy)", "10"],
@@ -763,12 +802,12 @@ const program = {
         ]}
       },
       {
-        num: "DAY 03", focus: "Full Technique + Posterior",
+        num: "DAY 03", focus: "Technique + Posterior",
         lifts: [
-          { name: "Hang Snatch + Full Snatch", cue: "Complex, feel the transition", scheme: "4x(1+1)", pct: "78-82%", rm: "snatch" },
-          { name: "Hang Clean + Full C+J", cue: "Complex", scheme: "4x(1+1)", pct: "78-82%", rm: "clean" },
-          { name: "Pause Back Squat", cue: "3-sec pause then drive", scheme: "4x3", pct: "78-83%", rm: "clean" },
-          { name: "Glute Bridge or Hip Thrust", cue: "DB or KB loaded", scheme: "3x12", pct: "Heavy", rm: null },
+          { name: "Hang Snatch + Full Snatch", cue: "Complex, feel the transition", scheme: "4×(1+1)", pct: "78–82%", rm: "snatch" },
+          { name: "Hang Clean + Full C+J", cue: "Complex", scheme: "4×(1+1)", pct: "78–82%", rm: "clean" },
+          { name: "Pause Back Squat", cue: "3-sec pause then drive", scheme: "4×3", pct: "78–83%", rm: "clean" },
+          { name: "Glute Bridge or Hip Thrust", cue: "DB or KB loaded", scheme: "3×12", pct: "Heavy", rm: null },
         ],
         wod: { title: "FOR TIME", format: "1 round, go hard", moves: [
           ["Pull-ups", "21"],
@@ -782,17 +821,17 @@ const program = {
     ]
   },
   4: {
-    title: "WEEK 4",
+    title: "WEEK 4", sub: "Deload",
     desc: "Cut volume 40%, drop intensity 10%. Technique only, no ego lifting. Your next PR is built in this week.",
     intensity: 2,
     days: [
       {
         num: "DAY 01", focus: "Snatch Technique",
         lifts: [
-          { name: "Snatch Pull", cue: "Slow, deliberate positions", scheme: "3x3", pct: "80-85%", rm: "snatch" },
-          { name: "Snatch", cue: "Crisp reps, no max attempts", scheme: "4x2", pct: "68-72%", rm: "snatch" },
-          { name: "Overhead Squat", cue: "Light and controlled", scheme: "3x4", pct: "65-70%", rm: "snatch" },
-          { name: "Snatch Balance", cue: "Positional drill", scheme: "3x3", pct: "65-70%", rm: "snatch" },
+          { name: "Snatch Pull", cue: "Slow, deliberate positions", scheme: "3×3", pct: "80–85%", rm: "snatch" },
+          { name: "Snatch", cue: "Crisp reps, no max attempts", scheme: "4×2", pct: "68–72%", rm: "snatch" },
+          { name: "Overhead Squat", cue: "Light and controlled", scheme: "3×4", pct: "65–70%", rm: "snatch" },
+          { name: "Snatch Balance", cue: "Positional drill", scheme: "3×3", pct: "65–70%", rm: "snatch" },
         ],
         wod: { title: "EASY FLOW", format: "3 rounds, relaxed pace", moves: [
           ["KB Swings (light)", "12"],
@@ -802,12 +841,12 @@ const program = {
         ]}
       },
       {
-        num: "DAY 02", focus: "Clean and Jerk Technique",
+        num: "DAY 02", focus: "Clean &amp; Jerk Technique",
         lifts: [
-          { name: "Clean Pull", cue: "Position drill, not power", scheme: "3x3", pct: "88-92%", rm: "clean" },
-          { name: "Clean and Jerk", cue: "Smooth reps, no max attempts", scheme: "4x2", pct: "68-72%", rm: "clean" },
-          { name: "Front Squat", cue: "Light, stay upright", scheme: "3x4", pct: "65-72%", rm: "clean" },
-          { name: "Push Press", cue: "Jerk timing drill", scheme: "3x4", pct: "65%", rm: "clean" },
+          { name: "Clean Pull", cue: "Position drill, not power", scheme: "3×3", pct: "88–92%", rm: "clean" },
+          { name: "Clean and Jerk", cue: "Smooth reps, no max attempts", scheme: "4×2", pct: "68–72%", rm: "clean" },
+          { name: "Front Squat", cue: "Light, stay upright", scheme: "3×4", pct: "65–72%", rm: "clean" },
+          { name: "Push Press", cue: "Jerk timing drill", scheme: "3×4", pct: "65%", rm: "clean" },
         ],
         wod: { title: "EASY FLOW", format: "3 rounds, relaxed pace", moves: [
           ["DB Bent-over Row", "10"],
@@ -819,14 +858,14 @@ const program = {
       {
         num: "DAY 03", focus: "Movement Quality",
         lifts: [
-          { name: "Power Snatch", cue: "Focus on catch position", scheme: "4x2", pct: "65-70%", rm: "snatch" },
-          { name: "Power Clean + Push Jerk", cue: "Footwork and timing", scheme: "4x(1+2)", pct: "65-70%", rm: "clean" },
-          { name: "Good Morning", cue: "Bodyweight or very light", scheme: "3x10", pct: "Light", rm: null },
-          { name: "Single-leg RDL", cue: "Balance and hip hinge", scheme: "3x8 ea.", pct: "Light DB/KB", rm: null },
+          { name: "Power Snatch", cue: "Focus on catch position", scheme: "4×2", pct: "65–70%", rm: "snatch" },
+          { name: "Power Clean + Push Jerk", cue: "Footwork and timing", scheme: "4×(1+2)", pct: "65–70%", rm: "clean" },
+          { name: "Good Morning", cue: "Bodyweight or very light", scheme: "3×10", pct: "Light", rm: null },
+          { name: "Single-leg RDL", cue: "Balance and hip hinge", scheme: "3×8 ea.", pct: "Light DB/KB", rm: null },
         ],
         wod: { title: "OPTIONAL FINISHER", format: "10 min easy movement", moves: [
-          ["KB Farmer Carry", "4x40m"],
-          ["Pull-up hang or scap work", "4x20 sec"],
+          ["KB Farmer Carry", "4×40m"],
+          ["Pull-up hang or scap work", "4×20 sec"],
           ["Hip 90/90 stretch", "2 min total"],
         ]}
       },
@@ -834,6 +873,18 @@ const program = {
   }
 };
 
+// ── STATE ──
+let currentWeek = 1;
+let currentDay  = 0;
+
+function doneKey(w, d) { return `done-w${w}-d${d}`; }
+function isDone(w, d)   { return localStorage.getItem(doneKey(w, d)) === '1'; }
+function setDone(w, d, val) {
+  if (val) localStorage.setItem(doneKey(w, d), '1');
+  else localStorage.removeItem(doneKey(w, d));
+}
+
+// ── RENDER WARMUP ──
 function renderWU(data, id, open) {
   const blocksHtml = data.blocks.map(b => `
     <div class="wu-block">
@@ -848,10 +899,10 @@ function renderWU(data, id, open) {
   return `<div class="wu-panel${open ? ' open' : ''}" id="${id}">
     <button class="wu-toggle" onclick="toggleWU('${id}')">
       <span class="wu-arrow">&#9658;</span>
-      <span class="wu-toggle-text">
+      <div>
         <span class="wu-name">${data.name}</span>
         <span class="wu-sub">${data.sub}</span>
-      </span>
+      </div>
     </button>
     <div class="wu-body">
       ${blocksHtml}
@@ -860,86 +911,125 @@ function renderWU(data, id, open) {
   </div>`;
 }
 
-function renderWeek(n) {
-  const w = program[n];
+// ── RENDER WEEK NAV ──
+function renderWeekNav() {
+  const nav = document.getElementById('week-nav');
+  nav.innerHTML = Object.entries(program).map(([n, w]) => {
+    const dots = [0,1,2].map(d =>
+      `<span class="done-dot${isDone(n, d) ? ' on' : ''}"></span>`
+    ).join('');
+    return `<button class="week-btn${+n === currentWeek ? ' active' : ''}" onclick="switchWeek(${n})">
+      <span class="wn-num">WK ${n}</span>
+      <span class="wn-sub">${w.sub}</span>
+      <div class="done-dots">${dots}</div>
+    </button>`;
+  }).join('');
+}
+
+// ── RENDER WEEK BANNER ──
+function renderWeekBanner() {
+  const w = program[currentWeek];
   const pips = Array.from({length:5}, (_,i) =>
     `<span class="pip${i < w.intensity ? ' on' : ''}"></span>`).join('');
-
-  let html = `
+  document.getElementById('week-banner').innerHTML = `
     <div class="week-banner">
       <div class="wb-title">${w.title}</div>
       <div class="wb-desc">${w.desc}</div>
       <div class="intensity-row">Intensity &nbsp;${pips}</div>
-    </div>
-    <div class="days-grid">`;
-
-  w.days.forEach((day, di) => {
-    const genId  = 'wu-gen-w'  + n + 'd' + di;
-    const specId = 'wu-spec-w' + n + 'd' + di;
-    const dayKey = 'day' + di;
-
-    html += `<div class="day-card">
-      <div class="day-header">
-        <div class="day-num">${day.num}</div>
-        <div class="day-focus">${day.focus}</div>
-      </div>
-      <div class="section">
-        <div class="sec-label">Warm-Up</div>
-        ${renderWU(warmups.general, genId, false)}
-        ${renderWU(warmups[dayKey], specId, true)}
-      </div>
-      <div class="section">
-        <div class="sec-label">Olympic Lifts</div>
-        ${day.lifts.map(l => {
-          const w = calcWeight(l.pct, l.rm);
-          return `
-          <div class="lift-row">
-            <div class="lift-name">${l.name}<span class="lift-cue">${l.cue}</span></div>
-            <div class="lift-scheme">${l.scheme}<span class="lift-pct">${l.pct}</span>${w ? `<span class="lift-weight">${w}</span>` : ''}</div>
-          </div>`;
-        }).join('')}
-      </div>
-      <div class="section">
-        <div class="sec-label">Conditioning</div>
-        <div class="wod-box">
-          <div class="wod-head">
-            <div class="wod-title">${day.wod.title}</div>
-            <div class="wod-format">${day.wod.format}</div>
-          </div>
-          <ul class="wod-movements">
-            ${day.wod.moves.map(m => `<li><span>${m[0]}</span><span class="wod-reps">${m[1]}</span></li>`).join('')}
-          </ul>
-        </div>
-      </div>
     </div>`;
-  });
-
-  html += `</div>
-    <div class="program-notes">
-      <div class="pn-title">Programming Notes</div>
-      <div class="pn-grid">
-        <div class="pn-block"><strong>Foot and Ankle</strong>No box jumps in any week — subbed for step-ups or bike. RDLs and good mornings keep posterior chain load without dorsiflexion stress.</div>
-        <div class="pn-block"><strong>When to Push</strong>If Weeks 2 or 3 feel exceptional, take one attempt above the range. Otherwise trust the number and leave the gym feeling fast.</div>
-        <div class="pn-block"><strong>Conditioning</strong>These are finishers, not main events. Keep them under 15 min. Reduce load before breaking sets unnecessarily.</div>
-        <div class="pn-block"><strong>Week 4 Deload</strong>This is not optional. Adaptation happens here. No sneaking in heavier singles during deload week.</div>
-      </div>
-    </div>`;
-
-  return html;
 }
 
-function showWeek(n, btn) {
-  document.querySelectorAll('.week-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('week-content').innerHTML = renderWeek(n);
+// ── RENDER DAY NAV ──
+function renderDayNav() {
+  const w = program[currentWeek];
+  document.getElementById('day-nav').innerHTML = w.days.map((day, di) => {
+    const done = isDone(currentWeek, di);
+    return `<button class="day-tab${di === currentDay ? ' active' : ''}${done ? ' is-done' : ''}" onclick="switchDay(${di})">
+      <span class="day-tab-num">${di + 1}</span>
+      <span class="day-tab-label">${day.focus.replace(/&amp;/g, '&')}</span>
+    </button>`;
+  }).join('');
+}
+
+// ── RENDER DAY ──
+function renderDay() {
+  const day = program[currentWeek].days[currentDay];
+  const genId  = `wu-gen-w${currentWeek}d${currentDay}`;
+  const specId = `wu-spec-w${currentWeek}d${currentDay}`;
+  const done = isDone(currentWeek, currentDay);
+
+  const liftsHtml = day.lifts.map(l => {
+    const w = calcWeight(l.pct, l.rm);
+    return `<div class="lift-row">
+      <div class="lift-name">${l.name}<span class="lift-cue">${l.cue}</span></div>
+      <div class="lift-scheme">${l.scheme}<span class="lift-pct">${l.pct}</span>${w ? `<span class="lift-weight">${w}</span>` : ''}</div>
+    </div>`;
+  }).join('');
+
+  const wodHtml = `<div class="wod-box">
+    <div class="wod-head">
+      <div class="wod-title">${day.wod.title}</div>
+      <div class="wod-format">${day.wod.format}</div>
+    </div>
+    <ul class="wod-movements">
+      ${day.wod.moves.map(m => `<li><span>${m[0]}</span><span class="wod-reps">${m[1]}</span></li>`).join('')}
+    </ul>
+  </div>`;
+
+  document.getElementById('day-content').innerHTML = `
+    <div class="day-focus-line">${day.focus}</div>
+    <div class="section">
+      <div class="sec-label">Warm-Up</div>
+      ${renderWU(warmups.general, genId, false)}
+      ${renderWU(warmups['day' + currentDay], specId, true)}
+    </div>
+    <div class="section">
+      <div class="sec-label">Olympic Lifts</div>
+      ${liftsHtml}
+    </div>
+    <div class="section">
+      <div class="sec-label">Conditioning</div>
+      ${wodHtml}
+    </div>
+    <button class="done-btn${done ? ' marked' : ''}" id="done-btn" onclick="toggleDone()">
+      ${done ? '✓ Day Complete' : 'Mark Day Complete'}
+    </button>`;
+}
+
+// ── INTERACTIONS ──
+function switchWeek(n) {
+  currentWeek = n;
+  currentDay  = 0;
+  renderWeekNav();
+  renderWeekBanner();
+  renderDayNav();
+  renderDay();
+}
+
+function switchDay(d) {
+  currentDay = d;
+  renderDayNav();
+  renderDay();
+}
+
+function toggleDone() {
+  const current = isDone(currentWeek, currentDay);
+  setDone(currentWeek, currentDay, !current);
+  renderWeekNav();
+  renderDayNav();
+  renderDay();
 }
 
 function toggleWU(id) {
-  var el = document.getElementById(id);
+  const el = document.getElementById(id);
   if (el) el.classList.toggle('open');
 }
 
-document.getElementById('week-content').innerHTML = renderWeek(1);
+// ── INIT ──
+renderWeekNav();
+renderWeekBanner();
+renderDayNav();
+renderDay();
 </script>
 </body>
 </html>
