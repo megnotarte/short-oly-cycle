@@ -24,21 +24,26 @@
     background: var(--bg) !important;
     color: var(--text);
     font-family: 'DM Mono', monospace;
-    font-size: 13px;
+    font-size: 16px;
     line-height: 1.6;
     min-height: 100vh;
+  }
+
+  .page-wrap {
+    max-width: 700px;
+    margin: 0 auto;
   }
 
   * { box-sizing: border-box; }
 
   .header {
     background: var(--bg);
-    padding: 40px 24px 28px;
+    padding: 32px 20px 24px;
     border-bottom: 1px solid var(--border);
   }
 
   .program-label {
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.22em;
     color: var(--rust);
     text-transform: uppercase;
@@ -65,25 +70,25 @@
   .meta-item { display: flex; flex-direction: column; gap: 2px; }
 
   .meta-label {
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 0.18em;
     color: var(--text-muted);
     text-transform: uppercase;
   }
 
-  .meta-value { font-size: 12px; color: var(--text-dim); }
+  .meta-value { font-size: 14px; color: var(--text-dim); }
 
   .notes-bar {
     background: #111;
     border-bottom: 1px solid var(--border);
-    padding: 12px 24px;
+    padding: 12px 20px;
     display: flex;
     flex-direction: column;
     gap: 6px;
   }
 
   .note-tag {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--text-dim);
     display: flex;
     gap: 8px;
@@ -124,7 +129,7 @@
 
   .wn-sub {
     font-family: 'DM Mono', monospace;
-    font-size: 8px;
+    font-size: 9px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     display: block;
@@ -133,7 +138,7 @@
 
   .week-btn.active .wn-sub { color: var(--gold); }
 
-  .content { padding: 20px 24px; }
+  .content { padding: 20px 20px; }
 
   .week-banner {
     background: var(--surface);
@@ -164,7 +169,7 @@
     align-items: center;
     gap: 6px;
     margin-top: 8px;
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--text-muted);
@@ -222,7 +227,7 @@
   .section:last-child { border-bottom: none; }
 
   .sec-label {
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--rust);
@@ -245,11 +250,11 @@
 
   .lift-row:last-child { border-bottom: none; }
 
-  .lift-name { font-size: 12px; color: var(--text); font-weight: 500; }
+  .lift-name { font-size: 16px; color: var(--text); font-weight: 500; }
 
   .lift-cue {
     display: block;
-    font-size: 10px;
+    font-size: 13px;
     color: var(--text-muted);
     font-weight: 400;
     font-style: italic;
@@ -258,7 +263,7 @@
 
   .lift-scheme {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 15px;
+    font-size: 20px;
     letter-spacing: 0.05em;
     color: var(--gold);
     text-align: right;
@@ -268,7 +273,7 @@
   .lift-pct {
     display: block;
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
+    font-size: 12px;
     color: var(--text-muted);
     text-align: right;
   }
@@ -294,7 +299,7 @@
     color: var(--rust);
   }
 
-  .wod-format { font-size: 10px; color: var(--text-muted); }
+  .wod-format { font-size: 11px; color: var(--text-muted); }
 
   .wod-movements { list-style: none; }
 
@@ -302,7 +307,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 11px;
+    font-size: 15px;
     color: var(--text-dim);
     padding: 4px 0;
     border-bottom: 1px dotted var(--border);
@@ -313,7 +318,7 @@
 
   .wod-reps {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 13px;
+    font-size: 18px;
     color: var(--gold);
     letter-spacing: 0.04em;
     white-space: nowrap;
@@ -355,7 +360,7 @@
   .wu-toggle-text { display: flex; flex-direction: column; gap: 1px; flex: 1; }
 
   .wu-name {
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-dim);
@@ -363,7 +368,7 @@
   }
 
   .wu-sub {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text-muted);
     font-family: 'Crimson Pro', serif;
     font-style: italic;
@@ -382,7 +387,7 @@
   .wu-block { margin-top: 10px; }
 
   .wu-block-title {
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--gold);
@@ -395,7 +400,7 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    font-size: 11px;
+    font-size: 14px;
     color: var(--text-dim);
     padding: 3px 0;
     border-bottom: 1px dotted var(--surface2);
@@ -403,7 +408,7 @@
   }
 
   .wu-item:last-child { border-bottom: none; }
-  .wu-detail { font-size: 10px; color: var(--text-muted); white-space: nowrap; }
+  .wu-detail { font-size: 13px; color: var(--text-muted); white-space: nowrap; }
 
   .wu-note {
     margin-top: 10px;
@@ -411,7 +416,7 @@
     border-top: 1px solid var(--border);
     font-family: 'Crimson Pro', serif;
     font-style: italic;
-    font-size: 12px;
+    font-size: 15px;
     color: var(--text-muted);
     line-height: 1.6;
   }
@@ -438,11 +443,11 @@
     gap: 12px;
   }
 
-  .pn-block { font-size: 11px; color: var(--text-dim); line-height: 1.65; }
+  .pn-block { font-size: 13px; color: var(--text-dim); line-height: 1.65; }
 
   .pn-block strong {
     display: block;
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--gold);
@@ -451,10 +456,15 @@
 
   @media (max-width: 480px) {
     .pn-grid { grid-template-columns: 1fr; }
+    .header { padding: 24px 16px 20px; }
+    .notes-bar { padding: 10px 16px; }
+    .content { padding: 16px; }
+    .day-header, .section { padding-left: 14px; padding-right: 14px; }
   }
 </style>
 </head>
 <body>
+<div class="page-wrap">
 
 <div class="header">
   <div class="program-label">Advanced · 3 Days/Week · 4-Week Cycle</div>
@@ -508,6 +518,8 @@
 <div class="content">
   <div id="week-content"></div>
 </div>
+
+</div><!-- /.page-wrap -->
 
 <script>
 const warmups = {
